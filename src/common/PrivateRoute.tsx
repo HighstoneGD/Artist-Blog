@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import { Route, Redirect, RouteProps} from 'react-router-dom'
 import { AuthContext, LoadedContext } from '../auth/AuthContext'
+import { Loading } from '../components/Loading'
 
 export const PrivateRoute = (props: IPrivateRoute) => {
     const { isAdminRoute, ...rest } = props
@@ -9,11 +10,17 @@ export const PrivateRoute = (props: IPrivateRoute) => {
     const isAdmin = currentUser?.isAdmin && isAdminRoute
     const isLoggedInUser = !!currentUser && !isAdminRoute
 
+    console.log(isLoaded, isLoggedInUser, isAdmin, isAdmin || isLoggedInUser)
+
     return (
         (isAdmin || isLoggedInUser) ?
         <Route
             { ...rest } />
-        : (isLoaded ? isLoggedInUser ? <Redirect to = "/log-in"/> : <Redirect to = "/"/> : null)
+        : (isLoaded ? 
+            (isLoggedInUser ? 
+                <Redirect to = "/"/> 
+                : <Redirect to = "/log-in"/>)
+            : <Loading />)
     )
 }
 
