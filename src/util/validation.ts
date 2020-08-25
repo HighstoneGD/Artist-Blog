@@ -1,12 +1,12 @@
-import { ISignUpForm } from '../common/SignUpForm'
-import { ILogInForm } from '../common/LogInForm'
+import { ILogInInputs } from './../common/LogInForm'
+import { ISignUpInputs } from './../common/SignUpForm'
 
 export const emailRE = /\S+@\S+\.\S+/
 export const numberRE = /\d/
 export const uppercaseRE = /.*[A-Z].*/
 export const lowercaseRE = /.*[a-z].*/
 
-export const validateLogInForm = (inputs: ILogInForm) => {
+export const validateLogInForm = (inputs: ILogInInputs) => {
     return !!inputs.email &&
     !!inputs.password &&
     emailRE.test(inputs.email)
@@ -14,7 +14,7 @@ export const validateLogInForm = (inputs: ILogInForm) => {
     && inputs.password.length > 6
 }
 
-export const validateSignUpForm = (inputs: ISignUpForm) => {
+export const validateSignUpForm = (inputs: ISignUpInputs) => {
     console.log(validateLogInForm(inputs), inputs.password.localeCompare(inputs.repeatPassword) === 0)
     return validateLogInForm(inputs)
     && inputs.password.localeCompare(inputs.repeatPassword) === 0

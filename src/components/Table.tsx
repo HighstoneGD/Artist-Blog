@@ -30,24 +30,24 @@ const useStyles = makeStyles({
     }
 })
 
+const createData = (name: string | undefined, email: string | undefined, uid: string | null) => {
+    return { name, email, uid }
+}
+
+const transformSnapshot = (snapshot: firebase.database.DataSnapshot): any[] => {
+    if (snapshot.exists()) {
+        const users = Object.keys(snapshot.val()).map(k => ({ ...snapshot.val()[k], uid: k }))
+        return users.map(user => createData(user.name, user.email, user.uid))
+    }
+    return []
+}
+
 const TablePage: React.FC = () => {
     const classes = useStyles()
     const [tableData, setTableData] = useState<any[]>([])
     const [loading, setLoading] = useState(true)
 
     const [hoverElementEmail, setHoverElementEmail] = useState('')
-
-    const createData = (name: string | undefined, email: string | undefined, uid: string | null) => {
-        return { name, email, uid }
-    }
-
-    const transformSnapshot = (snapshot: firebase.database.DataSnapshot): any[] => {
-        if (snapshot.exists()) {
-            const users = Object.keys(snapshot.val()).map(k => ({ ...snapshot.val()[k], uid: k }))
-            return users.map(user => createData(user.name, user.email, user.uid))
-        }
-        return []
-    }
 
     useEffect(() => {
         async function fetchUsers() {
@@ -62,36 +62,36 @@ const TablePage: React.FC = () => {
 
     const renderTable = () => 
         <TableContainer component={ Paper } className = { classes.table }>
-                    <Table aria-label="simple table">
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Name</TableCell>
-                                <TableCell>Email</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                        { tableData.map((row) => (
-                            <TableRow key={ row.email }>
-                                <TableCell
-                                    onMouseOver = { () => {
-                                        setHoverElementEmail(row.email)
-                                    } }
-                                    onMouseLeave = { () => setHoverElementEmail('') }
-                                    style = { { position: 'relative' } }>
-                                    { row.name }
-                                    { hoverElementEmail === row.email ?
-                                        <CreateIcon 
-                                            className = { classes.icon } 
-                                            onClick = { () => { window.location.replace('/user/' + row.uid) } }/>
-                                        : null
-                                    }
-                                </TableCell>
-                                <TableCell >{ row.email }</TableCell>
-                            </TableRow>
-                        )) }
-                        </TableBody>
-                    </Table>
-                </TableContainer>
+            <Table aria-label="simple table">
+                <TableHead>
+                    <TableRow>
+                        <TableCell>Name</TableCell>
+                        <TableCell>Email</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                { tableData.map((row) => (
+                    <TableRow key={ row.email }>
+                        <TableCell
+                            onMouseOver = { () => {
+                                setHoverElementEmail(row.email)
+                            } }
+                            onMouseLeave = { () => setHoverElementEmail('') }
+                            style = { { position: 'relative' } }>
+                            { row.name }
+                            { hoverElementEmail === row.email ?
+                                <CreateIcon 
+                                    className = { classes.icon } 
+                                    onClick = { () => { window.location.replace('/user/' + row.uid) } }/>
+                                : null
+                            }
+                        </TableCell>
+                        <TableCell >{ row.email }</TableCell>
+                    </TableRow>
+                )) }
+                </TableBody>
+            </Table>
+        </TableContainer>
 
     return (
         <div className = { classes.root }>

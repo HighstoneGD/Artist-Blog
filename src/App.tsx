@@ -7,7 +7,7 @@ import Table from './components/Table'
 import User from './components/User'
 import { PrivateRoute } from './common/PrivateRoute'
 import { ThemeProvider } from '@material-ui/core'
-import { theme } from './util/theme'
+import { theme } from './theme/theme'
 
 const App: React.FC = () => {
   return (

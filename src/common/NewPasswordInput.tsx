@@ -41,7 +41,7 @@ export const NewPasswordInput: React.FC<{ password: string }> = props => {
             display: 'flex',
             flexDirection: 'row',
             flexWrap: 'nowrap',
-            justifyContent: 'flex-start'
+            justifyContent: 'center'
         },
         meterCell: {
             display: 'block',
@@ -59,13 +59,19 @@ export const NewPasswordInput: React.FC<{ password: string }> = props => {
     const classes = useStyles()
 
     useEffect(() => {
-        setPasswordStrength(
-            [numberRE, lowercaseRE, uppercaseRE].map(rule => {
-                return rule.test(props.password)
-            })
-            .map<number>(result => result ? 1 : 0)
-            .reduce((prev, curr) => prev + curr)
-        )
+        if (props.password !== undefined) {
+            setPasswordStrength(
+                [numberRE, lowercaseRE, uppercaseRE].map(rule => {
+                    console.log(props.password)
+                    console.log(rule.test(props.password))
+                    return rule.test(props.password)
+                })
+                .map<number>(result => result ? 1 : 0)
+                .reduce((prev, curr) => prev + curr)
+            )
+        } else {
+            setPasswordStrength(0)
+        }
     }, [props.password])
 
     return (

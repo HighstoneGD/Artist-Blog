@@ -2,8 +2,8 @@ import React from 'react'
 import { Theme } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/styles'
 import { signUp } from '../auth/service'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
-import { SignUpForm, ISignUpForm } from '../common/SignUpForm'
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
+import { SignUpForm, ISignUpInputs } from '../common/SignUpForm'
 import background from '../assets/photo/exhibition.jpg'
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -33,13 +33,20 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         justifyContent: 'center',
         alignItems: 'center',
         color: theme.palette.primary.light
-    }
+    },
+    link: {
+        color: theme.palette.secondary.main,
+        textDecoration: 'none',
+        '&:hover': {
+            color: theme.palette.secondary.dark
+        }
+    },
 }))
 
 const SignUp: React.FC<RouteComponentProps> = props => {
     const classes = useStyles()
 
-    const doSignUp = (inputs: ISignUpForm) => {
+    const doSignUp = (inputs: ISignUpInputs) => {
         signUp(inputs)
             .then(() => props.history.push('/'))
             .catch(error => alert(error))
@@ -50,6 +57,7 @@ const SignUp: React.FC<RouteComponentProps> = props => {
             <div className = { classes.formContainer }>
                 <h1>Create an account</h1>
                 <SignUpForm action = { doSignUp }/>
+                <p>Already have an account? <Link to = "/log-in" className = { classes.link }>Log In!</Link></p>
             </div>
         </div>
     )

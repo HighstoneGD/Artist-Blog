@@ -2,7 +2,7 @@ import React from 'react'
 import { Theme } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/styles'
 import { logIn } from '../auth/service'
-import { withRouter, RouteComponentProps } from 'react-router-dom'
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
 import { LogInForm } from '../common/LogInForm'
 import background from '../assets/photo/exhibition.jpg'
 
@@ -33,6 +33,13 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
         justifyContent: 'center',
         alignItems: 'center',
         color: theme.palette.primary.light
+    },
+    link: {
+        color: theme.palette.secondary.main,
+        textDecoration: 'none',
+        '&:hover': {
+            color: theme.palette.secondary.dark
+        }
     }
 }))
 
@@ -50,6 +57,7 @@ const LogIn: React.FC<RouteComponentProps> = props => {
             <div className = { classes.formContainer }>
                 <h1>Login to your account</h1>
                 <LogInForm action = { doLogIn }/>
+                <p>Don`t have an account? <Link to = "/sign-up" className = { classes.link }>Sign Up!</Link></p>
             </div>
         </div>
     )

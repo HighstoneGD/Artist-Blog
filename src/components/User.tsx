@@ -28,7 +28,7 @@ const User: React.FC = () => {
         promise.then(snapshot => {
             if (snapshot?.exists()) setUser({ name: snapshot.val().name, email: snapshot.val().email })
         })
-    }, [])
+    }, [uid])
 
     return (
         <div className = { classes.root }>
