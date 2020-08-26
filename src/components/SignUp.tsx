@@ -1,7 +1,7 @@
 import React from 'react'
 import { Theme } from '@material-ui/core'
 import { makeStyles, createStyles } from '@material-ui/styles'
-import { signUp } from '../auth/service'
+import { signUp, createDBUser } from '../auth/service'
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom'
 import { SignUpForm, ISignUpInputs } from '../common/SignUpForm'
 import background from '../assets/photo/exhibition.jpg'
@@ -48,6 +48,9 @@ const SignUp: React.FC<RouteComponentProps> = props => {
 
     const doSignUp = (inputs: ISignUpInputs) => {
         signUp(inputs)
+            .then((response) => {
+                createDBUser(response.user)
+            })
             .then(() => props.history.push('/'))
             .catch(error => alert(error))
     }

@@ -28,7 +28,7 @@ export const signOut = async () => {
 export const createDBUser = (user: firebase.User | null) => {
     if (user) {
         app.database()
-        .ref(user.uid)
+        .ref('users/' + user.uid)
         .set({
             email: user.email,
             name: '',
@@ -39,19 +39,19 @@ export const createDBUser = (user: firebase.User | null) => {
 
 export const changeDBUserName = (userId: string | undefined, newName: string | undefined) => {
     if (userId) app.database()
-        .ref(userId + '/name')
+        .ref('users/' + userId + '/name')
         .set(newName)
 }
 
 export const getDBUserSnapshot = async (userId: string): Promise<firebase.database.DataSnapshot> => {
     return app.database()
-        .ref(userId)
+        .ref('users/' + userId)
         .once('value')
 }
 
 export const getUsersListSnapshot = (): Promise<firebase.database.DataSnapshot> => {
     return app.database()
-        .ref()
+        .ref('users')
         .once('value')
 }
 

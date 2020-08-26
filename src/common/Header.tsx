@@ -1,33 +1,49 @@
 import React, { useContext } from 'react'
-import { Button } from '@material-ui/core'
-import { makeStyles } from '@material-ui/styles'
+import { Theme } from '@material-ui/core'
+import { makeStyles, createStyles } from '@material-ui/styles'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import { AuthContext } from '../auth/AuthContext'
 import { signOut } from '../auth/service'
-import NavItem from './NavItem'
+import { Navigation } from './navigation/Navigation'
+import { Link } from 'react-router-dom'
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => createStyles({
     root: {
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'nowrap',
         justifyContent: 'space-between',
         width: '100vw',
-        height: '50px'
-    },
-    nav: {
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'nowrap',
-        justifyContent: 'left',
-        height: '100%'
+        height: '70px',
+        color: theme.palette.primary.dark,
+        backgroundColor: theme.palette.primary.dark
     },
     button: {
         margin: '5px'
+    },
+    link: {
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'nowrap',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: '100%',
+        marginRight: '20px',
+        color: theme.palette.secondary.main,
+        textDecoration: 'none',
+        '&:hover': {
+            color: theme.palette.secondary.dark,
+            cursor: 'pointer'
+        }
+    },
+    icon: {
+        margin: '0 10px'
     }
-})
+}))
 
-const Header: React.FC = () => {
-    const doSignOut = () => {
+export const Header: React.FC = () => {
+    const doSignOut = (event: React.MouseEvent<HTMLElement>) => {
+        event.preventDefault()
         signOut()
             .then(() => {
                 console.log('signed out')
@@ -38,31 +54,16 @@ const Header: React.FC = () => {
 
     const classes = useStyles()
     const currentUser = useContext(AuthContext)
-    const button =
-        currentUser ?
-            <Button className = { classes.button } variant = "contained" onClick = { doSignOut }>Sign Out</Button> :
-            null
-    const navItems = [ {
-            name: 'Home',
-            to: '/'
-        }
-    ]
-
-    if (currentUser?.isAdmin) navItems.push({
-        name: 'Users',
-        to: '/table'
-    })
 
     return (
         <div className = { classes.root }>
-            <nav className = { classes.nav }>
-                { navItems.map(item => {
-                    return <NavItem to = { item.to }>{ item.name }</NavItem>
-                }) }
-            </nav>
-            { button }
+            <Navigation />
+            { currentUser ? 
+                <div className = { classes.link } onClick = { doSignOut }>
+                    <span>Sign Out</span>
+                    <ExitToAppIcon className = { classes.icon }/>
+                </div> : 
+                <Link className = { `${ classes.link } ${ classes.icon }` } to = "log-in">Login</Link> }
         </div>
     )
 }
-
-export default Header

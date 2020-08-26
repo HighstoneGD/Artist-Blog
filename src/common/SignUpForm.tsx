@@ -141,7 +141,7 @@ export const SignUpForm: React.FC<{ action: Function }> = props => {
             ]) }
             <Button
                 className = { classes.button }
-                type = "submit">Submit</Button>
+                type = "submit">Sign Up</Button>
         </form>
     )
 }

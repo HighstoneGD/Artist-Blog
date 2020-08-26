@@ -10,8 +10,6 @@ export const PrivateRoute = (props: IPrivateRoute) => {
     const isAdmin = currentUser?.isAdmin && isAdminRoute
     const isLoggedInUser = !!currentUser && !isAdminRoute
 
-    console.log(isLoaded, isLoggedInUser, isAdmin, isAdmin || isLoggedInUser)
-
     return (
         (isAdmin || isLoggedInUser) ?
         <Route

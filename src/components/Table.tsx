@@ -9,12 +9,14 @@ import TableContainer from '@material-ui/core/TableContainer'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import CreateIcon from '@material-ui/icons/Create';
-import Header from '../common/Header'
+import CreateIcon from '@material-ui/icons/Create'
 import { withRouter } from 'react-router-dom'
+import { Layout } from '../common/Layout'
 
 const useStyles = makeStyles({
     root: {
+        width: '100%',
+        height: '100%',
         display: 'flex',
         flexDirection: 'column',
         flexWrap: 'nowrap',
@@ -94,11 +96,12 @@ const TablePage: React.FC = () => {
         </TableContainer>
 
     return (
-        <div className = { classes.root }>
-            <Header />
-            <h1>Users</h1>
-            { loading ? <CircularProgress /> : renderTable() }
-        </div>
+        <Layout>
+            <div className = { classes.root }>
+                <h1>Users</h1>
+                { loading ? <CircularProgress /> : renderTable() }
+            </div>
+        </Layout>
     )
 }
 

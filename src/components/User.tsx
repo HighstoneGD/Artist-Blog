@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { makeStyles } from '@material-ui/styles'
 import { TextField, Button } from '@material-ui/core'
-import Header from '../common/Header'
 import { changeDBUserName, getDBUserSnapshot } from '../auth/service'
 import { useLocation } from 'react-router-dom'
+import { Layout } from '../common/Layout'
 
 const useStyles = makeStyles({
     root: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     }
 })
 
-const User: React.FC = () => {
+export const User: React.FC = () => {
     const classes = useStyles()
     const [user, setUser] = useState({ name: '', email: '' })
 
@@ -31,22 +31,21 @@ const User: React.FC = () => {
     }, [uid])
 
     return (
-        <div className = { classes.root }>
-            <Header /> 
-            <h1>User</h1>
-            <p>Email: { user.email }</p>
-            <div>
-                Your name:
-                <TextField
-                    className = { classes.textfield }
-                    value = { user.name }
-                    onChange = { event => setUser({ ...user, name: event.target.value }) }/>
-                <Button
-                    variant = "contained"
-                    onClick = { () => { changeDBUserName(uid, user.name)  } }>Change name</Button>
+        <Layout>
+            <div className = { classes.root }>
+                <h1>User</h1>
+                <p>Email: { user.email }</p>
+                <div>
+                    Your name:
+                    <TextField
+                        className = { classes.textfield }
+                        value = { user.name }
+                        onChange = { event => setUser({ ...user, name: event.target.value }) }/>
+                    <Button
+                        variant = "contained"
+                        onClick = { () => { changeDBUserName(uid, user.name)  } }>Change name</Button>
+                </div>
             </div>
-        </div>
+        </Layout>
     )
 }
-
-export default User
