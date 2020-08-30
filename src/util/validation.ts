@@ -1,5 +1,4 @@
-import { ILogInInputs } from './../common/LogInForm'
-import { ISignUpInputs } from './../common/SignUpForm'
+import { ILogInInputs, ISignUpInputs } from '../common'
 
 export const emailRE = /\S+@\S+\.\S+/
 export const numberRE = /\d/
