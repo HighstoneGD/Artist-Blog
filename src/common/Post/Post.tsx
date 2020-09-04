@@ -17,11 +17,12 @@ export const Post: React.FC<IPostProps> = props => {
                     className = { classes.cover }
                     onMouseEnter = { () => setHover(true) }
                     onMouseLeave = { () => setHover(false) }>
-                    <h2 className = { classes.title }>{ props.body }</h2>
+                    <h2 className = { classes.title }>{ props.body.title } { props.body.id }</h2>
                     { hover && <Button
                         className = { classes.button }
                         variant = "outlined"
-                        color = "secondary">Read more</Button>
+                        color = "secondary"
+                        onClick = { () => props.activate() }>Read more</Button>
                     }
                 </div>
             </div>

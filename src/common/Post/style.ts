@@ -33,13 +33,13 @@ export default makeStyles((theme: Theme) => createStyles({
         justifyContent: 'space-between',
         alignItems: 'center',
         '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.3)'
+            backgroundColor: 'rgba(0, 0, 0, 0.4)'
         },
     },
     title: {
         color: theme.palette.primary.light
     },
     button: {
-        margin: '10px'
+        margin: '15px'
     }
 }))

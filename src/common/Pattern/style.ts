@@ -8,6 +8,7 @@ export default makeStyles((theme: Theme) => createStyles({
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'nowrap',
+        position: 'relative'
     },
     half: {
         width: '50%',
@@ -20,5 +21,14 @@ export default makeStyles((theme: Theme) => createStyles({
         display: 'flex',
         flexDirection: 'row',
         flexWrap: 'nowrap',
+    },
+    postWrapper: {
+        width: '100%',
+        height: '100%',
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        padding: '10px',
+        boxSizing: 'border-box'
     }
 }))

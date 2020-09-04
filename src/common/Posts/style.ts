@@ -7,7 +7,8 @@ export default makeStyles((theme: Theme) => createStyles({
         display: 'flex',
         flexDirection: 'column',
         flexWrap: 'nowrap',
-        alignItems: 'center'
+        alignItems: 'center',
+        position: 'relative'
     },
     spinner: {
         margin: '10px'

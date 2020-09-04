@@ -7,5 +7,6 @@ export enum Orientation {
 
 export interface IPostProps {
     orientation: Orientation,
-    body: IPost
+    body: IPost,
+    activate: Function
 }

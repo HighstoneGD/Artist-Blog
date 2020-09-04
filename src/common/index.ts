@@ -1,3 +1,5 @@
+export { ActivePost } from './ActivePost/ActivePost'
+export * from './ActivePost/types'
 export { Layout } from './Layout/Layout/Layout'
 export { LogInForm } from './Forms/LogInForm/LogInForm'
 export * from './Forms/LogInForm/types'

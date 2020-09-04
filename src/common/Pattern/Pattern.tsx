@@ -2,14 +2,18 @@ import React from 'react'
 import useStyles from './style'
 import { IPatternProps } from './types'
 import { Post, Orientation } from '../index'
+import { useDispatch } from 'react-redux'
+import * as actions from '../../store/actions'
 
 export const Pattern: React.FC<IPatternProps> = props => {
     const classes = useStyles()
+    const dispatch = useDispatch()
 
     const posts: (JSX.Element | null)[] = props.posts.map((post, index) => {
         return <Post 
             orientation = { index > 1 ? Orientation.vertical : Orientation.horizontal }
-            body = { post }/>
+            body = { post }
+            activate = { () => { dispatch(actions.setActivePost(post.id)) } }/> 
     })
 
     if (posts.length < 6) {
